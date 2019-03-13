@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Barrios_0.js"></script>
+        <script src="data/Comunas_1.js"></script>
+        <script src="data/Estaciones_MIO_2.js"></script>
+        <script src="data/Via_ferrea_3.js"></script>
+        <script src="data/Jerarquizacion_ciclorutas_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Mapdata: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        function pop_Barrios_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_barrio'] !== null ? Autolinker.link(String(feature.properties['id_barrio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['barrio'] !== null ? Autolinker.link(String(feature.properties['barrio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['area'] !== null ? Autolinker.link(String(feature.properties['area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['perimetro'] !== null ? Autolinker.link(String(feature.properties['perimetro'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Barrios_0_0() {
+            return {
+                pane: 'pane_Barrios_0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(88,205,228,1.0)',
+            }
+        }
+        map.createPane('pane_Barrios_0');
+        map.getPane('pane_Barrios_0').style.zIndex = 400;
+        map.getPane('pane_Barrios_0').style['mix-blend-mode'] = 'normal';
+        var layer_Barrios_0 = new L.geoJson(json_Barrios_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Barrios_0',
+            onEachFeature: pop_Barrios_0,
+            style: style_Barrios_0_0,
+        });
+        bounds_group.addLayer(layer_Barrios_0);
+        map.addLayer(layer_Barrios_0);
+        function pop_Comunas_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['comuna'] !== null ? Autolinker.link(String(feature.properties['comuna'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nombre'] !== null ? Autolinker.link(String(feature.properties['nombre'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['area'] !== null ? Autolinker.link(String(feature.properties['area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['perimetro'] !== null ? Autolinker.link(String(feature.properties['perimetro'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Comunas_1_0() {
+            return {
+                pane: 'pane_Comunas_1',
+                opacity: 1,
+                color: 'rgba(221,67,67,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,158,26,0.0)',
+            }
+        }
+        map.createPane('pane_Comunas_1');
+        map.getPane('pane_Comunas_1').style.zIndex = 401;
+        map.getPane('pane_Comunas_1').style['mix-blend-mode'] = 'normal';
+        var layer_Comunas_1 = new L.geoJson(json_Comunas_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Comunas_1',
+            onEachFeature: pop_Comunas_1,
+            style: style_Comunas_1_0,
+        });
+        bounds_group.addLayer(layer_Comunas_1);
+        map.addLayer(layer_Comunas_1);
+        function pop_Estaciones_MIO_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['estacion'] !== null ? Autolinker.link(String(feature.properties['estacion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['direccion'] !== null ? Autolinker.link(String(feature.properties['direccion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['clase'] !== null ? Autolinker.link(String(feature.properties['clase'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Estaciones_MIO_2_0() {
+            return {
+                pane: 'pane_Estaciones_MIO_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(20,226,130,1.0)',
+            }
+        }
+        map.createPane('pane_Estaciones_MIO_2');
+        map.getPane('pane_Estaciones_MIO_2').style.zIndex = 402;
+        map.getPane('pane_Estaciones_MIO_2').style['mix-blend-mode'] = 'normal';
+        var layer_Estaciones_MIO_2 = new L.geoJson(json_Estaciones_MIO_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Estaciones_MIO_2',
+            onEachFeature: pop_Estaciones_MIO_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Estaciones_MIO_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Estaciones_MIO_2);
+        map.addLayer(layer_Estaciones_MIO_2);
+        function pop_Via_ferrea_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['gid'] !== null ? Autolinker.link(String(feature.properties['gid'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tramo'] !== null ? Autolinker.link(String(feature.properties['tramo'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Via_ferrea_3_0() {
+            return {
+                pane: 'pane_Via_ferrea_3',
+                opacity: 1,
+                color: 'rgba(93,17,186,1.0)',
+                dashArray: '10,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Via_ferrea_3');
+        map.getPane('pane_Via_ferrea_3').style.zIndex = 403;
+        map.getPane('pane_Via_ferrea_3').style['mix-blend-mode'] = 'normal';
+        var layer_Via_ferrea_3 = new L.geoJson(json_Via_ferrea_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Via_ferrea_3',
+            onEachFeature: pop_Via_ferrea_3,
+            style: style_Via_ferrea_3_0,
+        });
+        bounds_group.addLayer(layer_Via_ferrea_3);
+        map.addLayer(layer_Via_ferrea_3);
+        function pop_Jerarquizacion_ciclorutas_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['condicion'] !== null ? Autolinker.link(String(feature.properties['condicion'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prioridad'] !== null ? Autolinker.link(String(feature.properties['prioridad'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nombre'] !== null ? Autolinker.link(String(feature.properties['nombre'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Jerarquizacion_ciclorutas_4_0() {
+            return {
+                pane: 'pane_Jerarquizacion_ciclorutas_4',
+                opacity: 1,
+                color: 'rgba(238,127,7,1.0)',
+                dashArray: '10,5,1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Jerarquizacion_ciclorutas_4');
+        map.getPane('pane_Jerarquizacion_ciclorutas_4').style.zIndex = 404;
+        map.getPane('pane_Jerarquizacion_ciclorutas_4').style['mix-blend-mode'] = 'normal';
+        var layer_Jerarquizacion_ciclorutas_4 = new L.geoJson(json_Jerarquizacion_ciclorutas_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Jerarquizacion_ciclorutas_4',
+            onEachFeature: pop_Jerarquizacion_ciclorutas_4,
+            style: style_Jerarquizacion_ciclorutas_4_0,
+        });
+        bounds_group.addLayer(layer_Jerarquizacion_ciclorutas_4);
+        map.addLayer(layer_Jerarquizacion_ciclorutas_4);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Jerarquizacion_ciclorutas_4.png" /> Jerarquizacion_ciclorutas': layer_Jerarquizacion_ciclorutas_4,'<img src="legend/Via_ferrea_3.png" /> Via_ferrea': layer_Via_ferrea_3,'<img src="legend/Estaciones_MIO_2.png" /> Estaciones_MIO': layer_Estaciones_MIO_2,'<img src="legend/Comunas_1.png" /> Comunas': layer_Comunas_1,'<img src="legend/Barrios_0.png" /> Barrios': layer_Barrios_0,},{collapsed:false}).addTo(map);
+        map.on("zoomend", function(){
+
+            if (map.hasLayer(layer_Barrios_0)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                    layer_Barrios_0.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_Barrios_0.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+            if (map.hasLayer(layer_Estaciones_MIO_2)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                    layer_Estaciones_MIO_2.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_Estaciones_MIO_2.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+        });
+        setBounds();
+        var i = 0;
+        layer_Barrios_0.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['barrio'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['barrio']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Barrios_0'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Comunas_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['comuna'] !== null?String('<div style="color: #eef91a; font-size: 15pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['comuna']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Comunas_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_Estaciones_MIO_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['estacion'] !== null?String('<div style="color: #13a474; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['estacion']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Estaciones_MIO_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+            if (map.hasLayer(layer_Barrios_0)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                    layer_Barrios_0.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_Barrios_0.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+            if (map.hasLayer(layer_Estaciones_MIO_2)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                    layer_Estaciones_MIO_2.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_Estaciones_MIO_2.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
+        resetLabels([layer_Barrios_0,layer_Comunas_1,layer_EstacionesMIO_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Barrios_0,layer_Comunas_1,layer_EstacionesMIO_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Barrios_0,layer_Comunas_1,layer_EstacionesMIO_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Barrios_0,layer_Comunas_1,layer_EstacionesMIO_2]);
+        });
+        </script>
+    </body>
+</html>
