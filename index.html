@@ -347,6 +347,17 @@
         L.control.layers(baseMaps,{'<img src="legend/Jerarquizacion_ciclorutas_4.png" /> Jerarquizacion_ciclorutas': layer_Jerarquizacion_ciclorutas_4,'<img src="legend/Via_ferrea_3.png" /> Via_ferrea': layer_Via_ferrea_3,'<img src="legend/Estaciones_MIO_2.png" /> Estaciones_MIO': layer_Estaciones_MIO_2,'<img src="legend/Comunas_1.png" /> Comunas': layer_Comunas_1,'<img src="legend/Barrios_0.png" /> Barrios': layer_Barrios_0,'<img src="legend/Camaras_fotodeteccion_2.png" /> Camaras_fotodeteccion': layer_Camaras_fotodeteccion_2,},{collapsed:false}).addTo(map);
         map.on("zoomend", function(){
 
+                if (map.hasLayer(layer_Camaras_fotodeteccion_2)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                    layer_Camaras_fotodeteccion_2.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_Camaras_fotodeteccion_2.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
             if (map.hasLayer(layer_Barrios_0)) {
                 if (map.getZoom() <= 19 && map.getZoom() >= 14) {
                     layer_Barrios_0.eachLayer(function (layer) {
