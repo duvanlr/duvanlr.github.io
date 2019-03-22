@@ -244,7 +244,7 @@
         map.createPane('pane_Camaras_fotodeteccion_2');
         map.getPane('pane_Camaras_fotodeteccion_2').style.zIndex = 402;
         map.getPane('pane_Camaras_fotodeteccion_2').style['mix-blend-mode'] = 'normal';
-        var layer_Camaras_fotodeteccion_2 = new L.geoJson.multiStyle(json_Camaras_fotodeteccion_2, {
+        var layer_Camaras_fotodeteccion_2 = new L.geoJson.(json_Camaras_fotodeteccion_2, {
             attribution: '',
             pane: 'pane_Camaras_fotodeteccion_2',
             onEachFeature: pop_Camaras_fotodeteccion_2,
