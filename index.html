@@ -37,6 +37,7 @@
         <script src="data/Barrios_0.js"></script>
         <script src="data/Comunas_1.js"></script>
         <script src="data/Estaciones_MIO_2.js"></script>
+        <script src="data/Camaras_fotodeteccion_2.js"></script>
         <script src="data/Via_ferrea_3.js"></script>
         <script src="data/Jerarquizacion_ciclorutas_4.js"></script>
         <script>
@@ -197,6 +198,51 @@
         });
         bounds_group.addLayer(layer_Estaciones_MIO_2);
         map.addLayer(layer_Estaciones_MIO_2);
+        function pop_Camaras_fotodeteccion_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tipo'] !== null ? Autolinker.link(String(feature.properties['tipo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">direccion</th>\
+                        <td>' + (feature.properties['direccion'] !== null ? Autolinker.link(String(feature.properties['direccion'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Camaras_fotodeteccion_2_0() {
+            return {
+                pane: 'pane_Camaras_fotodeteccion_2',
+                radius: 4.799999999999999,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+            }
+        }
+        map.createPane('pane_Camaras_fotodeteccion_2');
+        map.getPane('pane_Camaras_fotodeteccion_2').style.zIndex = 402;
+        map.getPane('pane_Camaras_fotodeteccion_2').style['mix-blend-mode'] = 'normal';
+        var layer_Camaras_fotodeteccion_2 = new L.geoJson(json_Camaras_fotodeteccion_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Camaras_fotodeteccion_2',
+            onEachFeature: pop_Camaras_fotodeteccion_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Camaras_fotodeteccion_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Camaras_fotodeteccion_2);
+        map.addLayer(layer_Camaras_fotodeteccion_2);
         function pop_Via_ferrea_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -277,9 +323,20 @@
         });
         osmGeocoder.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Jerarquizacion_ciclorutas_4.png" /> Jerarquizacion_ciclorutas': layer_Jerarquizacion_ciclorutas_4,'<img src="legend/Via_ferrea_3.png" /> Via_ferrea': layer_Via_ferrea_3,'<img src="legend/Estaciones_MIO_2.png" /> Estaciones_MIO': layer_Estaciones_MIO_2,'<img src="legend/Comunas_1.png" /> Comunas': layer_Comunas_1,'<img src="legend/Barrios_0.png" /> Barrios': layer_Barrios_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/Jerarquizacion_ciclorutas_4.png" /> Jerarquizacion_ciclorutas': layer_Jerarquizacion_ciclorutas_4,'<img src="legend/Via_ferrea_3.png" /> Via_ferrea': layer_Via_ferrea_3,'<img src="legend/Estaciones_MIO_2.png" /> Estaciones_MIO': layer_Estaciones_MIO_2,'<img src="legend/Comunas_1.png" /> Comunas': layer_Comunas_1,'<img src="legend/Barrios_0.png" /> Barrios': layer_Barrios_0,'<img src="legend/Camaras_fotodeteccion_2.png" /> Camaras_fotodeteccion': layer_Camaras_fotodeteccion_2,},{collapsed:false}).addTo(map);
         map.on("zoomend", function(){
 
+                if (map.hasLayer(layer_Camaras_fotodeteccion_2)) {
+                if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+                    layer_Camaras_fotodeteccion_2.eachLayer(function (layer) {
+                        layer.openTooltip();
+                    });
+                } else {
+                    layer_Camaras_fotodeteccion_2.eachLayer(function (layer) {
+                        layer.closeTooltip();
+                    });
+                }
+            }
             if (map.hasLayer(layer_Barrios_0)) {
                 if (map.getZoom() <= 19 && map.getZoom() >= 14) {
                     layer_Barrios_0.eachLayer(function (layer) {
